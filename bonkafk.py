@@ -1,8 +1,24 @@
-import time, random
+from telnetlib import GA
+import time, 
 import pyautogui as gui
+
+global Loop
+global TeamChange
+global xpCooldownBypass
+global Game1FirstTeam
+global Game1SecondTeam
+global Game1ThirdTeam
+global Game1ForthTeam
+global Game2FirstTeam
+global Game2SecondTeam
+global Game2ThirdTeam
+global Game2ForthTeam
+global CurrentGameHost
+global DefinedHostTab
 
 Loop = 0
 TeamChange = 0
+xpCooldownBypass = 0
 Game1FirstTeam = 'undefined'
 Game1SecondTeam = 'undefined'
 Game1ThirdTeam = 'undefined'
@@ -13,8 +29,11 @@ Game2ThirdTeam = 'undefined'
 Game2ForthTeam = 'undefined'
 CurrentGameHost = 'undefined'
 DefinedHostTab = 'true'
+CurrentGame = 'undefined'
 gui.PAUSE = 0.000001
-Game1FirstTeam = input('what is the current first tab team? ')
+Game1FirstTeam = input('what is the current Game 1 host tab team? ')
+time.sleep(0.2)
+Game2FirstTeam = input('what is the current Game 2 host tab team? ')
 time.sleep(0.2)
 Monitor = input('what is the current monitor, e.g., laptop, left hp, main dell, old tvs ')
 time.sleep(0.2)
@@ -132,6 +151,22 @@ def MapFav():
         favasdasd = 0
 
 def HostTab():
+    global Loop
+    global TeamChange
+    global Game1FirstTeam
+    global Game1SecondTeam
+    global Game1ThirdTeam
+    global Game1ForthTeam
+    global Game2FirstTeam
+    global Game2SecondTeam
+    global Game2ThirdTeam
+    global Game2ForthTeam
+    global CurrentGameHost
+    global DefinedHostTab
+    if CurrentGame == 1:
+        CurrentGameHost = Game1HostTeam
+    else:
+        CurrentGameHost = Game2HostTeam
     if CurrentGameHost == 1:
         FirstTab()
     elif CurrentGameHost == 2:
@@ -140,11 +175,30 @@ def HostTab():
         ThirdTab()
     elif CurrentGameHost == 4:
         ForthTab()
+    elif CurrentGameHost == 5:
+        FifthTab()
+    elif CurrentGameHost == 6:
+        SixthTab()
+    elif CurrentGameHost == 7:
+        SeventhTab()
+    elif CurrentGameHost == 8:
+        EighthTab()
     else:
-        golbal = DefinedHostTab
         DefinedHostTab = 'false'
 
 def FirstGame():
+    global Loop
+    global TeamChange
+    global Game1FirstTeam
+    global Game1SecondTeam
+    global Game1ThirdTeam
+    global Game1ForthTeam
+    global Game2FirstTeam
+    global Game2SecondTeam
+    global Game2ThirdTeam
+    global Game2ForthTeam
+    global CurrentGameHost
+    global DefinedHostTab
     if Game1FirstTeam == 'red':
         FirstTab()
         time.sleep(0.2)
@@ -260,6 +314,18 @@ def FirstGame():
         Game1ForthTeam = 'blue'
 
 def SecondGame():
+    global Loop
+    global TeamChange
+    global Game1FirstTeam
+    global Game1SecondTeam
+    global Game1ThirdTeam
+    global Game1ForthTeam
+    global Game2FirstTeam
+    global Game2SecondTeam
+    global Game2ThirdTeam
+    global Game2ForthTeam
+    global CurrentGameHost
+    global DefinedHostTab
     if Game2FirstTeam == 'red':
         FifthTab()
         time.sleep(0.2)
@@ -385,45 +451,59 @@ def GameStart():
     
 time.sleep(3)
 while True:
-    time.sleep(0.2)
-    FirstTab()
-    time.sleep(0.5)
-    First
-    
-    if WatchGame == 1:
-        if Game1FirstTeam == 'blue':
-            FirstTab()
-            print('first tab was blue')
-        else:
-            if Game1SecondTeam == 'blue':
-                SecondTab()
-                print('second tab was blue')
-            else:
-                if Game1ThirdTeam == 'blue':
-                    ThirdTab()
-                    print('third tab was blue')
-                else:
-                    if Game1ForthTeam == 'blue':
-                        ForthTab()
-                        print('forth tab was blue')
-                    else:
-                        print('no tab with blue found')
+    xpCooldownBypass = xpCooldownBypass + 1
+    if xpCooldownBypass == 2:
+        print('stopping temperarily in attempt to bypass xp cooldown')
     else:
-        if Game2FirstTeam == 'blue':
-            FifthTab()
-            print('fifth tab was blue')
-        else:
-            if Game2SecondTeam == 'blue':
-                SixthTab()
-                print('sixth tab was blue')
+        time.sleep(0.2)
+        CurrentGame = 1
+        FirstGame()
+        time.sleep(0.5)
+        FirstTab()
+        time.sleep(0.2)
+        StartGameButton()
+        time.sleep(1)
+        CurrentGame = 2
+        SecondGame()
+        time.sleep(0.5)
+        FifthTab()
+        time.sleep(0.2)
+        StartGameButton()
+        time.sleep(1)
+        if WatchGame == 1:
+            if Game1FirstTeam == 'blue':
+                FirstTab()
+                print('first tab was blue')
             else:
-                if Game2ThirdTeam == 'blue':
-                    SeventhTab()
-                    print('seventh tab was blue')
+                if Game1SecondTeam == 'blue':
+                    SecondTab()
+                    print('second tab was blue')
                 else:
-                    if Game2ForthTeam == 'blue':
-                        EighthTab()
-                        print('eighth tab was blue')
+                    if Game1ThirdTeam == 'blue':
+                        ThirdTab()
+                        print('third tab was blue')
                     else:
-                        print('no tab with team blue found')
-    time.sleep(61)
+                        if Game1ForthTeam == 'blue':
+                            ForthTab()
+                            print('forth tab was blue')
+                        else:
+                            print('no tab with blue found')
+        else:
+            if Game2FirstTeam == 'blue':
+                FifthTab()
+                print('fifth tab was blue')
+            else:
+                if Game2SecondTeam == 'blue':
+                    SixthTab()
+                    print('sixth tab was blue')
+                else:
+                    if Game2ThirdTeam == 'blue':
+                        SeventhTab()
+                        print('seventh tab was blue')
+                    else:
+                        if Game2ForthTeam == 'blue':
+                            EighthTab()
+                            print('eighth tab was blue')
+                        else:
+                            print('no tab with team blue found')
+    time.sleep(41)
